@@ -12,20 +12,15 @@ package fifthwheel.controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import fifthwheel.beans.FifthWheel;
-import fifthwheel.beans.Manufacturer;
+
+
 
 @Configuration
 public class BeanConfiguration {
+	// This just tells spring how to create the entities
 	@Bean
 	public FifthWheel fifthwheel() {
-		FifthWheel bean = new FifthWheel();
-		bean.setModel("Solitude");
-		bean.setPrice(70000);
-		return bean;
-	}
-	@Bean
-	public Manufacturer manufacturer() {
-		Manufacturer bean = new Manufacturer("Winnebago", "Medium class");
-		return bean;
+		FifthWheel fifthwheel = new FifthWheel();
+		return fifthwheel;
 	}
 }

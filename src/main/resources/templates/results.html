@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		<table>
+			<tr th:each="currentFifthWheel: ${fifthwheel}">
+				<td th:text="${currentFifthWheel.id}" />
+				<td th:text="${currentFifthWheel.model}" />
+				<td th:text="${currentFifthWheel.price}" />
+				<td><a th:href="@{/edit/{id}(id=${currentFifthWheel.id})}">Edit</a></td>
+				<td><a th:href="@{/delete/{id}(id=${currentFifthWheel.id})}">Delete</a></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

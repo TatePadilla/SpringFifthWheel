@@ -12,5 +12,8 @@ package fifthwheel.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import fifthwheel.beans.FifthWheel;
+
 @Repository
-public interface FifthWheelRepository extends JpaRepository<FifthWheel, Long> { }
+public interface FifthWheelRepository extends JpaRepository<FifthWheel, Long> { 
+	//Takes the place of helper methods/CRUD methods
+}
