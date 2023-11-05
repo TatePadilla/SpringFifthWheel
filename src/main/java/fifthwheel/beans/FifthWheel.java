@@ -27,5 +27,4 @@ public class FifthWheel {
 	private long id;
 	private String model;
 	private int price;
-	
 }

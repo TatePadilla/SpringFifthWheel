@@ -12,8 +12,8 @@ package fifthwheel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,37 +24,49 @@ import fifthwheel.repository.FifthWheelRepository;
 public class WebController {
 	@Autowired
 	FifthWheelRepository repo;
-	
-	@GetMapping("/")
-	public String getForm(FifthWheel fifthwheel) {
-		return "index";
-	}
-	
+
 	// Directs to add.html from index
-	@GetMapping("/add.html")
-	public String getAdd(FifthWheel fifthwheel) {
+	@GetMapping("/add")
+	public String add(Model model) {
+		FifthWheel f = new FifthWheel();
+		model.addAttribute("newFifthWheel", f);
 		return "add";
 	}
-	
+
 	// Method used in add.html template
-	@PostMapping("/saveFifthWheel")
-	public String saveFifthWheelDetails(FifthWheel fifthwheel, Errors errors, Model model) {
-		if (null != errors && errors.getErrorCount() > 0) {
-			return "index";
-		} else {
-			repo.save(fifthwheel);
-			model.addAttribute("successMsg", "Added successfully!");
-			return "index";
+	@PostMapping("/add")
+	public String add(@ModelAttribute FifthWheel f, Model model) {
+		repo.save(f);
+		return viewAll(model);
+	}
+
+	@GetMapping("/edit/{id}")
+	public String showUpdateFifthWheel(@PathVariable("id") long id, Model model) {
+		FifthWheel f = repo.findById(id).orElse(null);
+		model.addAttribute("newFifthWheel", f);
+		return "add.html";
+	}
+
+	@PostMapping("/update/{id}")
+	public String getUpdate(FifthWheel f, Model model) {
+		repo.save(f);
+		return viewAll(model);
+	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteFifthWheel(@PathVariable("id") long id, Model model) {
+		FifthWheel f = repo.findById(id).orElse(null);
+		System.out.println(f);
+		repo.delete(f);
+		return viewAll(model);
+	}
+
+	@GetMapping({ "/", "viewAll" })
+	public String viewAll(Model model) {
+		if (repo.findAll().isEmpty()) {
+			return add(model);
 		}
-	}
-	
-	@PostMapping("/update.html")
-	public String getUpdate(FifthWheel fifthwheel) {
-		return "update";
-	}
-	
-	@GetMapping("/delete.html")
-	public String deleteFifthwheel(FifthWheel fifthwheel) {
-		return "delete";
+		model.addAttribute("fifth_wheel", repo.findAll());
+		return "results";
 	}
 }

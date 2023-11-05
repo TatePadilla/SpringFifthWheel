@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Results</title>
 </head>
 <body>
+<h1>All Fifth Wheels:</h1>
 	<form>
 		<table>
-			<tr th:each="currentFifthWheel: ${fifthwheel}">
+			<tr th:each="currentFifthWheel: ${fifth_wheel}">
 				<td th:text="${currentFifthWheel.id}" />
-				<td th:text="${currentFifthWheel.model}" />
-				<td th:text="${currentFifthWheel.price}" />
-				<td><a th:href="@{/edit/{id}(id=${currentFifthWheel.id})}">Edit</a></td>
+				<td th:text="${currentFifthWheel.model}"/>
+				<td th:text="${currentFifthWheel.price}"/>  
+				<td><a th:href="@{/edit/{id}(id=${currentFifthWheel.id})}">Update</a></td>
 				<td><a th:href="@{/delete/{id}(id=${currentFifthWheel.id})}">Delete</a></td>
 			</tr>
+			
 		</table>
+
+		<a href="../add">Add a new Fifth Wheel</a>
 	</form>
 </body>
 </html>
