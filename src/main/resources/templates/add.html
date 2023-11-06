@@ -3,17 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Add New Fifth Wheel</title>
+<script type="text/javascript">
+	// Form validation code will come here.
+	function validate() {
+		// Regex string to ensure only alphanumeric data is entered
+		var re = /^[\w ]+$/;
+
+		if (document.myForm.model.value == "") {
+			alert("Please provide a model name!");
+			document.myForm.model.focus();
+			return false;
+		}
+		
+		if (document.myForm.model.value > 30) {
+			alert("Please provide a model name between 1-30 characters!");
+			document.myForm.model.focus();
+			return false;
+		}
+		
+		if (!re.test(myForm.model.value)) {
+			alert("Error: Input contains invalid characters!");
+			myForm.model.focus();
+			return false;
+		}
+		
+		if (document.myForm.price.value == "") {
+			alert("Please provide a price!");
+			document.myForm.price.focus();
+			return false;
+		}
+		
+		if (document.myForm.model.value > 10) {
+			alert("Please provide a price between 1-10 characters!");
+			document.myForm.model.focus();
+			return false;
+		}
+
+		if (!re.test(myForm.price.value)) {
+			alert("Error: Input contains invalid characters!");
+			myForm.price.focus();
+			return false;
+		}
+
+		return (true);
+	}
+</script>
 </head>
 <body>
 	<div align="center" class="col-md-12">
 		<h2>Add/update a Fifth Wheel</h2>
 		<div class="col-md-6">
-			<form action="#" th:action="@{/update/{id}(id=${newFifthWheel.id})}" th:object="${newFifthWheel}" method="post">
+			<form action="#" name="myForm"
+				th:action="@{/update/{id}(id=${newFifthWheel.id})}"
+				th:object="${newFifthWheel}" method="post"
+				onsubmit="return(validate());">
 				<div class="form-group">
-					<label for="model">Model:</label> <input type="text" class="form-control" th:field="*{model}" id="model" name="model" />
+					<label for="model">Model:</label> <input type="text"
+						class="form-control" th:field="*{model}" id="model" name="model" />
 				</div>
 				<div class="form-group">
-					<label for="price">Price:</label> <input type="text" class="form-control" th:field="*{price}" id="price" name="price">
+					<label for="price">Price:</label> <input type="text"
+						class="form-control" th:field="*{price}" id="price" name="price"/>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Submit</button>
